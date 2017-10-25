@@ -2,6 +2,8 @@ package com.goldenducks.erecipe.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,48 +19,72 @@ import com.goldenducks.erecipe.entity.ERecipe;
 import com.goldenducks.erecipe.service.ERecipeService;
 
 @RestController
-@CrossOrigin(origins="*")
-@RequestMapping(value="/erecipe")
+@CrossOrigin(origins = "*")
+@RequestMapping(value = "/erecipe")
 public class ERecipeController {
 
 	@Autowired
 	private ERecipeService eRecipeService;
-	
-	@GetMapping(value ="/{username}")
-	public List<ERecipe> getAllERecipes(@PathVariable("username")String username){
-		return eRecipeService.getAllERecipes(username);
+
+	private static final Logger logger = LoggerFactory.getLogger(ERecipeController.class);
+
+	@GetMapping
+	public List<ERecipe> getAllERecipes() {
+
+		logger.debug("getAllERecipes method of ERecipeController called");
+		return eRecipeService.getAllERecipes();
+
 	}
-	
+
+	@GetMapping(value = "/{username}/{recipeName}")
+	public ERecipe getERecipe(@PathVariable("username") String username,
+			@PathVariable("recipeName") String recipeName) {
+
+		logger.debug("getERecipe method of ERecipeController called");
+		return eRecipeService.getERecipe(username, recipeName);
+
+	}
+
 	@PostMapping(consumes = "application/json")
-	public String createERecipe(@RequestBody ERecipe eRecipe) {
-		return eRecipeService.createERecipe(eRecipe);
-		
+	public void createERecipe(@RequestBody ERecipe eRecipe) {
+
+		logger.debug("createERecipe method of ERecipeController called");
+		eRecipeService.createERecipe(eRecipe);
+
 	}
-	
-	@GetMapping(value ="/searchbyname/{username}/{recipeName}")
-	public List<ERecipe> searchERecipesByRecipeName(@PathVariable("username") String username, @PathVariable("recipeName") String recipeName) {
+
+	@GetMapping(value = "/searchbyname/{username}/{recipeName}")
+	public List<ERecipe> searchERecipesByRecipeName(@PathVariable("username") String username,
+			@PathVariable("recipeName") String recipeName) {
+
+		logger.debug("searchERecipesByRecipeName method of ERecipeController called");
 		return eRecipeService.searchERecipesByRecipeName(username, recipeName);
+
 	}
-	
-	@GetMapping(value ="/searchbytype/{username}/{recipeType}")
-	public List<ERecipe> searchERecipesByRecipeType(@PathVariable("username") String username, @PathVariable("recipeType")String recipeType) {
+
+	@GetMapping(value = "/searchbytype/{username}/{recipeType}")
+	public List<ERecipe> searchERecipesByRecipeType(@PathVariable("username") String username,
+			@PathVariable("recipeType") String recipeType) {
+
+		logger.debug("searchERecipesByRecipeType method of ERecipeController called");
 		return eRecipeService.searchERecipesByRecipeType(username, recipeType);
+
 	}
 
 	@PutMapping(consumes = "application/json")
-	public String updateERecipe(@RequestBody ERecipe eRecipe) {
-		return eRecipeService.updateERecipe(eRecipe);
+	public void updateERecipe(@RequestBody ERecipe eRecipe) {
+
+		logger.debug("updateERecipe method of ERecipeController called");
+		eRecipeService.updateERecipe(eRecipe);
+
 	}
-	
-	@DeleteMapping
-	public String deleteERecipe(ERecipe eRecipe) {
-		eRecipeService.deleteERecipe(eRecipe);
-		return null;
+
+	@DeleteMapping(value= "/{username}/{recipeName}")
+	public void deleteERecipe(@PathVariable("username") String username, @PathVariable("recipeName")String recipeName) {
+
+		logger.debug("deleteERecipe method of ERecipeController called");
+		eRecipeService.deleteERecipe(username, recipeName);
+
 	}
-	
-	@GetMapping(value="/{username}/{recipeName}")
-	public ERecipe getERecipe(@PathVariable("username") String username, @PathVariable("recipeName") String recipeName) {
-		return eRecipeService.getERecipe(username, recipeName);
-	}
-	
+
 }

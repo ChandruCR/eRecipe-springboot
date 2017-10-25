@@ -1,0 +1,34 @@
+# Spring properties
+spring:
+  application:
+    name: erecipe
+  data:
+# MongoDB properties
+    mongodb:
+      host: localhost
+      port: 27017
+      database: erecipe
+
+# Discovery Server Access
+eureka:
+    client:
+      serviceUrl:
+        defaultZone: http://localhost:7000/eureka/
+
+# HTTP Server (Tomcat) Port
+server: 
+  port: 7002
+  
+# Logging
+logging:
+  file: erecipe.log
+  level:
+    root:  ERROR
+    org.springframework: ERROR
+    org.springframework.data: ERROR
+    com.goldenducks: DEBUG
+    org.mongodb: ERROR
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  

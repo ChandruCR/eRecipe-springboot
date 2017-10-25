@@ -19,7 +19,9 @@ public interface ERecipeRepository extends MongoRepository<ERecipe, String> {
 	 
 	 public ERecipe findByUsernameAndRecipeName(String username, String recipeName);
 	 
-	 @Query(value="{ 'username' : ?0 }", fields="{ 'id':1, 'recipeName' : 1, 'recipeType' : 1, 'username' : 1}")
-	 public List<ERecipe> findAllRecipesByUsername(String username);
-	
+	 @Query(value = "{}", fields="{ 'id':1, 'recipeName' : 1, 'recipeType' : 1, 'username' : 1}")
+	 public List<ERecipe> findAll();
+	 
+	 @Query(value="{ 'username' : ?0, 'recipeName': ?1}", delete = true)
+	 public ERecipe deleteByUsernameAndRecipeName(String username, String recipeName);
 }
