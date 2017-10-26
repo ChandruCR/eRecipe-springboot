@@ -19,6 +19,7 @@ public class ERecipeServiceImpl implements ERecipeService {
 	private ERecipeRepository eRecipeRepository;
 	private static final Logger logger = LoggerFactory.getLogger(ERecipeController.class);
 
+	// this method gets all recipes from mongo repository
 	public List<ERecipe> getAllERecipes() {
 		try {
 			logger.debug("getAllERecipes method of ERecipeServiceImpl called");
@@ -29,6 +30,7 @@ public class ERecipeServiceImpl implements ERecipeService {
 		}
 	}
 
+	// this method gets complete details of a recipe from mongo repository
 	public ERecipe getERecipe(String username, String recipeName) {
 		try {
 			logger.debug("getAllERecipes method of ERecipeServiceImpl called");
@@ -39,7 +41,7 @@ public class ERecipeServiceImpl implements ERecipeService {
 		}
 	}
 	
-	
+	// this method creates new recipe in mongo repository
 	public void createERecipe(ERecipe eRecipe) {
 		try {
 			logger.debug("createERecipe method of ERecipeServiceImpl called");
@@ -50,6 +52,7 @@ public class ERecipeServiceImpl implements ERecipeService {
 		}
 	}
 
+	// this method gets all recipes from mongo repository matching username and recipeName passed to it
 	public List<ERecipe> searchERecipesByRecipeName(String username, String recipeName) {
 		try {
 			logger.debug("searchERecipesByRecipeName method of ERecipeServiceImpl called");
@@ -60,6 +63,7 @@ public class ERecipeServiceImpl implements ERecipeService {
 		}
 	}
 
+	// this method gets all recipes from mongo repository matching username and recipeType passed to it
 	public List<ERecipe> searchERecipesByRecipeType(String username, String recipeType) {
 		try {
 			logger.debug("searchERecipesByRecipeType method of ERecipeServiceImpl called");
@@ -69,7 +73,8 @@ public class ERecipeServiceImpl implements ERecipeService {
 			throw new ERecipeException(e.getCause() + e.getMessage());
 		}
 	}
-
+	
+	// this method updates a recipe in mongo repository
 	public void updateERecipe(ERecipe eRecipe) {
 		try {
 			logger.debug("updateERecipe method of ERecipeServiceImpl called");
@@ -80,6 +85,7 @@ public class ERecipeServiceImpl implements ERecipeService {
 		}
 	}
 
+	// this method deletes a reciped from mongo repository
 	public void deleteERecipe(String username, String recipeName) {
 		try {
 			logger.debug("deleteERecipe method of ERecipeServiceImpl called");
